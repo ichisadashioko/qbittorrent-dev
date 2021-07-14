@@ -42,6 +42,20 @@ def get_qbittorrent_fastresume_file_by_id(torrent_id: str, data_dir=get_default_
         raise Exception(f'{torrent_id} is not found in qBittorrent cache data dir')
 
 
+def get_qbittorrent_torrent_file_content_by_id(torrent_id: str, data_dir=get_default_qbittorrent_cache_data_dir()):
+    torrent_filepath = get_qbittorrent_torrent_file_by_id(torrent_id, data_dir)
+    with open(torrent_filepath, 'rb') as f:
+        content = f.read()
+    return content
+
+
+def get_qbittorrent_fastresume_file_content_by_id(torrent_id: str, data_dir=get_default_qbittorrent_cache_data_dir()):
+    fastresume_filepath = get_qbittorrent_fastresume_file_by_id(torrent_id, data_dir)
+    with open(fastresume_filepath, 'rb') as f:
+        content = f.read()
+    return content
+
+
 parser = argparse.ArgumentParser(description='Detect duplicate torrent file name')
 parser.add_argument('-d', '--dir', help='qBittorrent cache data path', default=get_default_qbittorrent_cache_data_dir())
 args = parser.parse_args()
